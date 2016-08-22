@@ -4,14 +4,14 @@
 
 Rails engine to facilitate inline text hashtags.
 
-* hashtags are entered inline in text, for example as `@tomasc`, `#location:Home(12345)` or `$my_variable`
-* when rendered, they are replaced by actual values, for example HTML tags, images, links etc.
+- hashtags are entered inline in text, for example as `@tomasc`, `#location:Home(12345)` or `$my_variable`
+- when rendered, they are replaced by actual values, for example HTML tags, images, links etc.
 
 Additionally:
 
-* the user can be assisted with a dropdown triggered by a special character (`#`, `@`, `$`, …)
-* `has_hash_tag_field` method is available to assist when rendering HTML input fields incl. data attributes, help, and supporting only specified hashtag classes
-* hashtags typically have `cache_key` defined on class so corresponding fragment cache can be easily expired
+- the user can be assisted with a dropdown triggered by a special character (`#`, `@`, `$`, ...)
+- `has_hash_tag_field` method is available to assist when rendering HTML input fields incl. data attributes, help, and supporting only specified hashtag classes
+- hashtags typically have `cache_key` defined on class so corresponding fragment cache can be easily expired
 
 ## Installation
 
@@ -23,11 +23,15 @@ gem 'hashtags'
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install hashtags
+```
+$ gem install hashtags
+```
 
 ## Usage
 
@@ -133,7 +137,6 @@ class LocationTag < Hashtags::Resource
 end
 ```
 
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -142,8 +145,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/tomasc/hashtags.
-
+Bug reports and pull requests are welcome on GitHub at <https://github.com/tomasc/hashtags>.
 
 ## License
 
