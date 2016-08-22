@@ -1,5 +1,10 @@
-require "hashtags/version"
+require 'hashtags/base'
+require 'hashtags/builder'
+require 'hashtags/default'
 
-module Hashtags
-  # Your code goes here...
-end
+require 'hashtags/resource_type'
+require 'hashtags/resource'
+require 'hashtags/user'
+require 'hashtags/variable'
+
+require 'hashtags/version'
