@@ -120,7 +120,7 @@ end
 See `Hashtags::Variable` and override its methods on your subclass as necessary. Typically it would be at least the following:
 
 ```ruby
-class LocationTag < Hashtags::Resource
+class VariableTag < Hashtags::Resource
   def self.values(_hash_tag_classes)
     # %w(
     #   variable_1
