@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tomasc/hashtags.svg)](https://travis-ci.org/tomasc/hashtags) [![Gem Version](https://badge.fury.io/rb/hashtags.svg)](http://badge.fury.io/rb/hashtags) [![Coverage Status](https://img.shields.io/coveralls/tomasc/hashtags.svg)](https://coveralls.io/r/tomasc/hashtags)
 
-Set of models and JS plugins to facilitate inline text hashtags.
+Rails engine to facilitate inline text hashtags.
 
 * hashtags are entered inline in text, for example as `@tomasc`, `#location:Home(12345)` or `$my_variable`
 * when rendered, they are replaced by actual values, for example HTML tags, images, links etc.

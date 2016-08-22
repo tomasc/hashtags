@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Tomas Celizna']
   spec.email         = ['tomas.celizna@gmail.com']
 
-  spec.summary       = 'Set of models and JS plugins to facilitate inline text hashtags.'
+  spec.summary       = 'Rails engine to facilitate inline text hashtags.'
   spec.homepage      = 'https://github.com/tomasc/hashtags'
   spec.license       = 'MIT'
 
