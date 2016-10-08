@@ -77,16 +77,17 @@ class UserTag < Hashtags::User
     # User
   end
 
-  def self.resources_for_query(query)
-    # User.where(full_name: /#{query}/i)
+  def self.tag_attribute
+    # name of attribute to be used in the tag
+    # @<tag_attribute>
   end
 
-  def resource_as_json(resource)
-    # {
-    #   _id: resource.id.to_s,
-    #   to_s: resource.full_name,
-    #   human_id: resource.full_name
-    # }
+  def self.result_attribute
+    # the tags will be replaced by this attribute
+  end
+
+  def resource(value)
+    # self.class.resource_class.find(value)
   end
 end
 ```
@@ -101,8 +102,8 @@ class LocationTag < Hashtags::Resource
     # Location
   end
 
-  def self.resources_for_query(query)
-    # Location.where(name: /#{query}/i)
+  def self.resource_query_criteria(_query)
+    # resource_class.where(name: /#{query}/i)
   end
 
   def resource_as_json(resource)
