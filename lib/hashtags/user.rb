@@ -58,6 +58,8 @@ module Hashtags
       "{{ #{tag_attribute} }}"
     end
 
+    # option – what is displayed in the dropdown
+    # tag – inserted into the tag
     def self.resource_as_json(resource)
       { option: resource.send(result_attribute), tag: resource.send(tag_attribute) }
     end
@@ -71,7 +73,7 @@ module Hashtags
       return unless user = resource(id)
       Handlebars::Context.new
                          .compile(self.class.replace.gsub('$1', Regexp.escape(self.class.trigger)))
-                         .call(tag_attribute => user.send(tag_attribute))
+                         .call(self.class.tag_attribute => user.send(self.class.tag_attribute))
     end
 
     # replaces tags with result from resource
@@ -82,8 +84,8 @@ module Hashtags
       user.send(self.class.result_attribute)
     end
 
-    # finds resource based on
-    def resource(_value)
+    # finds resource based on tag_attribute_value
+    def resource(tag_attribute_value)
       raise NotImplemented
     end
   end

@@ -80,13 +80,16 @@ class UserTag < Hashtags::User
   def self.tag_attribute
     # name of attribute to be used in the tag
     # @<tag_attribute>
+    # for example :username
   end
 
   def self.result_attribute
     # the tags will be replaced by this attribute
+    # for example :full_name
   end
 
-  def resource(value)
+  def resource(tag_attribute_value)
+    # this should find and return resource object
     # self.class.resource_class.find(value)
   end
 end
@@ -102,16 +105,20 @@ class LocationTag < Hashtags::Resource
     # Location
   end
 
-  def self.resource_query_criteria(_query)
-    # resource_class.where(name: /#{query}/i)
+  def self.tag_attribute
+    # name of attribute to be used in the tag
+    # #<tag_attribute>(id)
+    # for example :to_s
   end
 
-  def resource_as_json(resource)
-    # {
-    #   _id: resource.id.to_s,
-    #   to_s: resource.name,
-    #   human_id: resource.name
-    # }
+  def self.result_attribute
+    # the tags will be replaced by this attribute
+    # for example :to_s
+  end
+
+  def resource(tag_attribute_value)
+    # this should find and return resource object
+    # self.class.resource_class.find(value)
   end
 end
 ```

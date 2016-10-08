@@ -1,51 +1,18 @@
 require 'test_helper'
 
-class User < Struct.new(:name, :id)
-  def self.cache_key
-    'cache_key'
-  end
-
-  def self.find(_username)
-  end
-
-  def to_s
-    name
-  end
-end
-
-class UserTag < Hashtags::User
-  def self.resource_class
-    ::User
-  end
-
-  def self.tag_attribute
-    :id
-  end
-
-  def self.result_attribute
-    :name
-  end
-
-  def resource(value)
-    self.class.resource_class.find(value)
-  end
-end
-
 describe Hashtags::User do
-  let(:user_1) { ::User.new('Jan Tschichold', 'JTschichold') }
-  let(:user_2) { ::User.new('Karl Gerstner', 'KGerstner') }
+  let(:user_1) { ::User.new('JTschichold', 'Jan Tschichold') }
+  let(:user_2) { ::User.new('KGerstner', 'Karl Gerstner') }
 
   let(:str) { "Say hello to @#{user_1.id} and @#{user_2.id}!" }
 
   subject { UserTag.new(str) }
 
-  it { subject.must_respond_to :str }
   it { UserTag.cache_key.must_equal User.cache_key }
-  it { subject.class.regexp.must_be_kind_of Regexp }
 
   describe '.resource_as_json' do
     it 'returns json for resource' do
-      UserTag.resource_as_json(user_1).must_equal(option: user_1.to_s, tag: user_1.id)
+      UserTag.resource_as_json(user_1).must_equal(option: user_1.name, tag: user_1.id)
     end
   end
 
@@ -59,7 +26,7 @@ describe Hashtags::User do
       end
 
       ::User.stub(:find, find_result) do
-        subject.to_markup.must_equal "Say hello to #{user_1} and #{user_2}!"
+        subject.to_markup.must_equal "Say hello to #{user_1.name} and #{user_2.name}!"
       end
     end
   end

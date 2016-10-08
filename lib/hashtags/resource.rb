@@ -1,5 +1,11 @@
+require 'active_support/core_ext/string/inflections'
+
 module Hashtags
   class Resource < Base
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+
     def self.resource_class
       raise NotImplementedError
     end
@@ -10,6 +16,17 @@ module Hashtags
 
     def self.trigger
       '#'
+    end
+
+    # name of attribute to be used in the tag
+    # #<tag_attribute>(id)
+    def self.tag_attribute
+      raise NotImplemented
+    end
+
+    # the tags will be replaced by this attribute
+    def self.result_attribute
+      raise NotImplemented
     end
 
     def self.regexp
@@ -32,52 +49,42 @@ module Hashtags
     end
 
     def self.match_template
-      '{{ human_id }}'
+      "{{ #{tag_attribute} }}"
     end
 
     def self.replace
-      "#{trigger}#{resource_name}:{{ human_id }}({{ _id }})"
+      "#{trigger}#{resource_name}:{{ tag_attribute }}({{ id }})"
     end
 
     def self.template
-      '{{ human_id }}'
+      "{{ #{tag_attribute} }}"
     end
 
-    # ---------------------------------------------------------------------
-
-    # override on subclass
-    def self.resource_query_criteria(query)
-      resource_class.where(unique_id: /\A#{query}/i)
-    end
-
-    # override on subclass
+    # option – what is displayed in the dropdown
+    # tag – inserted into the tag
     def self.resource_as_json(resource)
-      { _id: resource.id.to_s, to_s: resource.to_s, human_id: resource.unique_id }
+      { option: resource.send(result_attribute), tag: resource.send(tag_attribute), id: resource.id }
     end
 
     private # =============================================================
 
     def hash_tag(match)
-      return unless id = match[2]
+      return unless id = match[self.class.match_index]
       return unless res = resource(id)
       Handlebars::Context.new
                          .compile(self.class.replace)
-                         .call(human_id: res.unique_id, _id: res.id.to_s)
+                         .call(id: res.id.to_s, self.class.tag_attribute => resource.send(self.class.tag_attribute))
     end
 
     def markup(match)
-      return unless id = match[2]
+      return unless id = match[self.class.match_index]
       return unless res = resource(id)
-      res.to_s
+      res.send(self.class.result_attribute)
     end
 
-    # ---------------------------------------------------------------------
-
-    # FIXME: too specific!
-    def resource(id)
-      return unless BSON::ObjectId.legal?(id)
-      @resource ||= {}
-      @resource[id] ||= self.class.resource_class.where(_id: BSON::ObjectId.from_string(id)).first
+    # finds resource based on tag_attribute_value
+    def resource(tag_attribute_value)
+      raise NotImplemented
     end
   end
 end
