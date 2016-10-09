@@ -1,4 +1,6 @@
-module HashTags
+require 'active_support/descendants_tracker'
+
+module Hashtags
   class ResourceType < Base
     def self.trigger
       '#'

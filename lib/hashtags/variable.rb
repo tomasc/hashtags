@@ -11,7 +11,7 @@ module Hashtags
     def self.resource_class
     end
 
-    def self.values(_hash_tag_classes = self.class.descendants)
+    def self.values(hash_tag_classes = Variable.descendants)
       raise NotImplemented
     end
 
@@ -43,19 +43,12 @@ module Hashtags
     end
 
     def self.strategy(hash_tag_classes)
-      super.tap do |obj|
-        obj[:values] = compound_values(hash_tag_classes)
-      end
+      super.tap { |obj| obj[:values] = compound_values(hash_tag_classes) }
     end
 
     def self.compound_values(hash_tag_classes)
       cls = Builder.new.filter_classes(variable_classes & hash_tag_classes)
       cls.map { |i| i.values(hash_tag_classes) }.flatten.compact
-    end
-
-    # ---------------------------------------------------------------------
-
-    def self.resource_query_criteria
     end
 
     def self.resource_as_json(_resource)

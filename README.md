@@ -129,7 +129,7 @@ See `Hashtags::Variable` and override its methods on your subclass as necessary.
 
 ```ruby
 class VariableTag < Hashtags::Resource
-  def self.values(_hash_tag_classes)
+  def self.values(hash_tag_classes = Hashtags::Variable.descendants)
     # %w(
     #   variable_1
     #   variable_2

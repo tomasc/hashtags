@@ -10,6 +10,10 @@ module Hashtags
       resource_class.to_s.demodulize.underscore
     end
 
+    def self.cache_key
+      resource_class.cache_key
+    end
+
     # ---------------------------------------------------------------------
 
     def self.trigger

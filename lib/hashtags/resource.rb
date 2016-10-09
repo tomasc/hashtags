@@ -2,16 +2,16 @@ require 'active_support/core_ext/string/inflections'
 
 module Hashtags
   class Resource < Base
-    def self.descendants
-      ObjectSpace.each_object(Class).select { |klass| klass < self }
-    end
-
     def self.resource_class
       raise NotImplementedError
     end
 
     def self.resource_name
       resource_class.to_s.demodulize.underscore
+    end
+
+    def self.cache_key
+      resource_class.cache_key
     end
 
     def self.trigger

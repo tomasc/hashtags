@@ -1,5 +1,9 @@
 module Hashtags
   class Base < Struct.new(:str)
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+
     def self.default_classes
       Default.descendants
     end
@@ -38,7 +42,7 @@ module Hashtags
     end
 
     def self.cache_key
-      resource_class.cache_key
+      raise NotImplementedError
     end
 
     # regexp to recognize the complete tag
@@ -51,7 +55,7 @@ module Hashtags
     end
 
     # implement to preload hash tag values
-    def self.values(_hash_tag_classes)
+    def self.values(hash_tag_classes)
     end
 
     # implement to show which values particular trigger offers
@@ -88,15 +92,15 @@ module Hashtags
 
     # ---------------------------------------------------------------------
 
-    # TODO: replace with serializers
-
-    # return JSON version of resources for specified query
-    # this is returned when user starts typing (the query)
-    def self.resources_for_query(query)
-      resource_class
-        .merge(resource_query_criteria(query))
-        .map { |resource| resource_as_json(resource) }
-    end
+    # # TODO: replace with serializers
+    #
+    # # return JSON version of resources for specified query
+    # # this is returned when user starts typing (the query)
+    # def self.resources_for_query(query)
+    #   resource_class
+    #     .merge(resource_query_criteria(query))
+    #     .map { |resource| resource_as_json(resource) }
+    # end
 
     # override on subclass
     def self.resource_query_criteria(_query)
@@ -137,19 +141,19 @@ module Hashtags
     def to_hash_tag
       str.to_s.gsub(self.class.regexp) do |match|
         ht = hash_tag(Regexp.last_match)
-        match = (ht.present? ? ht : match)
+        match = ht || match
       end
     end
 
     # ---------------------------------------------------------------------
 
     # the proper hashtag (so it can be updated automatically)
-    def hash_tag(_match)
+    def hash_tag(match)
       raise NotImplementedError
     end
 
     # what is the hashtag replaced with in the end
-    def markup(_match)
+    def markup(match)
       raise NotImplementedError
     end
   end
