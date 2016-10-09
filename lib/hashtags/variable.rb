@@ -8,10 +8,7 @@ module Hashtags
       /#{Regexp.escape(trigger)}(.+?)\b/i
     end
 
-    def self.resource_class
-    end
-
-    def self.values(hash_tag_classes = Variable.descendants)
+    def self.values(_hash_tag_classes = Variable.descendants)
       raise NotImplemented
     end
 
@@ -30,10 +27,6 @@ module Hashtags
       2
     end
 
-    def self.match_template
-      # not needed here
-    end
-
     def self.replace
       "#{trigger}1{{ this }}"
     end
@@ -49,9 +42,6 @@ module Hashtags
     def self.compound_values(hash_tag_classes)
       cls = Builder.new.filter_classes(variable_classes & hash_tag_classes)
       cls.map { |i| i.values(hash_tag_classes) }.flatten.compact
-    end
-
-    def self.resource_as_json(_resource)
     end
 
     private # =============================================================

@@ -3,18 +3,11 @@ require 'test_helper'
 describe Hashtags::Resource do
   let(:res_1) { ::MyResource.new('123', 'Resource 1') }
   let(:res_2) { ::MyResource.new('456', 'Resource 2') }
-
   let(:str) { "Resources: #my_resource:#{res_1.title}(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})" }
 
   subject { MyResourceTag.new(str) }
 
   it { MyResourceTag.cache_key.must_equal MyResource.cache_key }
-
-  describe '.resource_as_json' do
-    it 'returns json for resource' do
-      MyResourceTag.resource_as_json(res_1).must_equal(option: res_1.title, tag: res_1.title, id: res_1.id)
-    end
-  end
 
   describe '#to_markup' do
     it 'should replace hastags with markup' do

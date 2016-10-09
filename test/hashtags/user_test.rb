@@ -3,18 +3,11 @@ require 'test_helper'
 describe Hashtags::User do
   let(:user_1) { ::User.new('JTschichold', 'Jan Tschichold') }
   let(:user_2) { ::User.new('KGerstner', 'Karl Gerstner') }
-
   let(:str) { "Say hello to @#{user_1.id} and @#{user_2.id}!" }
 
   subject { UserTag.new(str) }
 
   it { UserTag.cache_key.must_equal User.cache_key }
-
-  describe '.resource_as_json' do
-    it 'returns json for resource' do
-      UserTag.resource_as_json(user_1).must_equal(option: user_1.name, tag: user_1.id)
-    end
-  end
 
   describe '#to_markup' do
     it 'should replace hastags with markup' do

@@ -1,18 +1,5 @@
 require 'test_helper'
 
-class VarTag < Hashtags::Variable
-  def self.values(hash_tag_classes = Hashtags::Variable.descendants)
-    %w(var_1 var_2)
-  end
-
-  def markup(match)
-    case name(match)
-    when 'var_1' then 'A'
-    when 'var_2' then 'B'
-    end
-  end
-end
-
 describe Hashtags::Variable do
   let(:var_1) { 'A' }
   let(:var_2) { 'B' }

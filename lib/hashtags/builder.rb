@@ -41,8 +41,8 @@ module Hashtags
 
     def hash_tag_classes
       filter_classes(
-        Hashtags.default_classes +
         Hashtags.resource_classes +
+        Hashtags.user_classes +
         Hashtags.variable_classes
       )
     end

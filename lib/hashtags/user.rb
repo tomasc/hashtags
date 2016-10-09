@@ -1,7 +1,8 @@
 require 'handlebars'
 
 module Hashtags
-  class User < Default
+  class User < Base
+    # implement as user class in your application
     def self.resource_class
       raise NotImplemented
     end
@@ -10,23 +11,23 @@ module Hashtags
       resource_class.to_s.demodulize.underscore
     end
 
+    # override for custom cache_key
     def self.cache_key
       resource_class.cache_key
     end
-
-    # ---------------------------------------------------------------------
 
     def self.trigger
       '@'
     end
 
     # name of attribute to be used in the tag
-    # @<tag_attribute>
+    # @<tag_attribute> (for example :username)
     def self.tag_attribute
       raise NotImplemented
     end
 
     # the tags will be replaced by this attribute
+    # (for example :full_name)
     def self.result_attribute
       raise NotImplemented
     end
@@ -62,12 +63,6 @@ module Hashtags
       "{{ #{tag_attribute} }}"
     end
 
-    # option – what is displayed in the dropdown
-    # tag – inserted into the tag
-    def self.resource_as_json(resource)
-      { option: resource.send(result_attribute), tag: resource.send(tag_attribute) }
-    end
-
     private # =============================================================
 
     # updates found tags with tag value from resource
@@ -89,6 +84,7 @@ module Hashtags
     end
 
     # finds resource based on tag_attribute_value
+    # for example: resource_class.where(username: tag_attribute_value).first
     def resource(tag_attribute_value)
       raise NotImplemented
     end

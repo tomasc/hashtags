@@ -1,23 +1,30 @@
 module Hashtags
+  # Base class, from which all Hashtag types inherit
+  # In case you wish to add a new type next to
+  # • ResourceType
+  # • Resource
+  # • User
+  # • Variable
+  # you might want to inherit from Base.
+
   class Base < Struct.new(:str)
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
-    end
-
-    def self.default_classes
-      Default.descendants
     end
 
     def self.resource_classes
       Resource.descendants
     end
 
+    def self.user_classes
+      User.descendants
+    end
+
     def self.variable_classes
       Variable.descendants
     end
 
-    # ---------------------------------------------------------------------
-
+    # to be passed to textcomplete
     def self.strategy(hash_tag_classes)
       {
         class_name: to_s,
@@ -31,16 +38,12 @@ module Hashtags
       }
     end
 
-    # ---------------------------------------------------------------------
-
+    # for example @ # $ …
     def self.trigger
       raise NotImplementedError
     end
 
-    def self.resource_class
-      raise NotImplementedError
-    end
-
+    # used to expire field with tags
     def self.cache_key
       raise NotImplementedError
     end
@@ -54,11 +57,13 @@ module Hashtags
     def self.path
     end
 
-    # implement to preload hash tag values
+    # implement to preload hash tag values,
+    # fe in case there is limited number (ie variable names)
     def self.values(hash_tag_classes)
     end
 
     # implement to show which values particular trigger offers
+    # fe # -> lists all available resource types
     def self.help_values
     end
 
@@ -75,11 +80,6 @@ module Hashtags
       raise NotImplementedError
     end
 
-    # match the user input against this
-    def self.match_template
-      raise NotImplementedError
-    end
-
     # tag that gets inserted into the field
     def self.replace
       raise NotImplementedError
@@ -92,28 +92,19 @@ module Hashtags
 
     # ---------------------------------------------------------------------
 
-    # # TODO: replace with serializers
-    #
-    # # return JSON version of resources for specified query
-    # # this is returned when user starts typing (the query)
-    # def self.resources_for_query(query)
-    #   resource_class
-    #     .merge(resource_query_criteria(query))
-    #     .map { |resource| resource_as_json(resource) }
-    # end
-
-    # override on subclass
-    def self.resource_query_criteria(_query)
+    # return JSON version of resources that match query
+    # this is returned when user starts typing (the query)
+    def self.resources_for_query(query)
       raise NotImplementedError
     end
 
-    # override on subclass
-    def self.resource_as_json(_resource)
-      raise NotImplementedError
+    def self.values(hash_tag_classes = Variable.descendants)
+      raise NotImplemented
     end
 
     # ---------------------------------------------------------------------
 
+    # converts Ruby tegexp to JS regexp
     def self.json_regexp(regexp)
       str = regexp.inspect
                   .sub('\\A', '^')
@@ -127,7 +118,7 @@ module Hashtags
       Regexp.new(str).source
     end
 
-    # =====================================================================
+    # ---------------------------------------------------------------------
 
     # Converts hash tags to markup
     def to_markup

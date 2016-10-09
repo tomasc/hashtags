@@ -2,6 +2,7 @@ require 'active_support/core_ext/string/inflections'
 
 module Hashtags
   class Resource < Base
+    # implement as resource class in your application
     def self.resource_class
       raise NotImplementedError
     end
@@ -19,12 +20,14 @@ module Hashtags
     end
 
     # name of attribute to be used in the tag
-    # #<tag_attribute>(id)
+    # #resource_name:<tag_attribute>(id)
+    # (for example :to_s)
     def self.tag_attribute
       raise NotImplemented
     end
 
     # the tags will be replaced by this attribute
+    # (for example resource.link_to)
     def self.result_attribute
       raise NotImplemented
     end
@@ -60,12 +63,6 @@ module Hashtags
       "{{ #{tag_attribute} }}"
     end
 
-    # option – what is displayed in the dropdown
-    # tag – inserted into the tag
-    def self.resource_as_json(resource)
-      { option: resource.send(result_attribute), tag: resource.send(tag_attribute), id: resource.id }
-    end
-
     private # =============================================================
 
     def hash_tag(match)
@@ -83,7 +80,8 @@ module Hashtags
     end
 
     # finds resource based on tag_attribute_value
-    def resource(tag_attribute_value)
+    # (for example resource_class.find(value))
+    def resource(value)
       raise NotImplemented
     end
   end

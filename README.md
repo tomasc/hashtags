@@ -88,12 +88,20 @@ class UserTag < Hashtags::User
     # for example :full_name
   end
 
+  def self.resources_for_query(query)
+    # return JSON representation of resources matching query
+    # { label: 'displayed in dropdown', value: 'inserted in the tag', id: … }
+    # this will be called from the controller as user types
+  end
+
   def resource(tag_attribute_value)
     # this should find and return resource object
     # self.class.resource_class.find(value)
   end
 end
 ```
+
+Implement the `values` class method instead of the `resources_for_query` to preload values.
 
 #### Resource
 
@@ -116,12 +124,20 @@ class LocationTag < Hashtags::Resource
     # for example :to_s
   end
 
-  def resource(tag_attribute_value)
+  def self.resources_for_query(query)
+    # return JSON representation of resources matching query
+    # { label: 'displayed in dropdown', value: 'inserted in the tag', id: … }
+    # this will be called from the controller as user types
+  end
+
+  def resource(value)
     # this should find and return resource object
     # self.class.resource_class.find(value)
   end
 end
 ```
+
+Implement the `values` class method instead of the `resources_for_query` to preload values.
 
 #### Variable
 
@@ -138,8 +154,8 @@ class VariableTag < Hashtags::Resource
 
   def markup(match)
     # case name(match)
-    # when 'variable_1' then get_value_of_variable_1(match)
-    # when 'variable_2' then get_value_of_variable_2(match)
+    # when 'variable_1' then 'foo'
+    # when 'variable_2' then 'bar'
     # end
   end
 end
