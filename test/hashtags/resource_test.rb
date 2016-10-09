@@ -8,6 +8,7 @@ describe Hashtags::Resource do
   subject { MyResourceTag.new(str) }
 
   it { MyResourceTag.cache_key.must_equal MyResource.cache_key }
+  it { Hashtags::Resource.find_by_resource_type(:my_resource).must_equal MyResourceTag }
 
   describe '#to_markup' do
     it 'should replace hastags with markup' do

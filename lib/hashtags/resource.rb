@@ -7,6 +7,10 @@ module Hashtags
       raise NotImplementedError
     end
 
+    def self.find_by_resource_type(resource_type)
+      descendants.detect{ |cls| cls.resource_name.to_s == resource_type.to_s }
+    end
+
     def self.resource_name
       resource_class.to_s.demodulize.underscore
     end
@@ -27,7 +31,7 @@ module Hashtags
     end
 
     # the tags will be replaced by this attribute
-    # (for example resource.link_to)
+    # (for example :link_to)
     def self.result_attribute
       raise NotImplemented
     end
