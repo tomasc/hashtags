@@ -6,4 +6,5 @@ require 'hashtags/resource'
 require 'hashtags/user'
 require 'hashtags/variable'
 
+require 'hashtags/engine'
 require 'hashtags/version'
