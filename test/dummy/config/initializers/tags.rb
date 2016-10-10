@@ -1,0 +1,5 @@
+require_relative '../../../support/resource_classes'
+require_relative '../../../support/resource_tags'
+require_relative '../../../support/user_classes'
+require_relative '../../../support/user_tags'
+require_relative '../../../support/variable_tags'

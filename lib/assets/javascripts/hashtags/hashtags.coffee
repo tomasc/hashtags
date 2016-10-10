@@ -1,3 +1,4 @@
+#= require handlebars
 #= require jquery-textcomplete
 
 # https://github.com/zenorocha/jquery-boilerplate
@@ -22,8 +23,9 @@
     init: ->
       @$element.textcomplete(@get_strategies())
 
-    get_default_path: -> @$element.data 'hash-tag-path'
-    get_strategies: -> $.map @$element.data('hash-tag-strategies'), (strategy) => @get_strategy(strategy)
+    get_data: -> @$element.data 'hashtags'
+    get_default_path: -> @get_data()['path']
+    get_strategies: -> $.map @get_data()['strategies'], (strategy) => @get_strategy(strategy)
     get_strategy: (data) ->
       {
         index: data.match_index
@@ -63,4 +65,4 @@
 
 )(jQuery, window)
 
-$ -> $('input[type="text"][data-hash-tag-strategies], textarea[data-hash-tag-strategies]').hashtags()
+$ -> $('input[type="text"][data-hashtags], textarea[data-hashtags]').hashtags()

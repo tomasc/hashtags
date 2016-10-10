@@ -13,7 +13,10 @@ group :test do
   gem 'jquery-rails'
   gem 'jbuilder', '~> 2.0'
 
-  gem 'rails-assets-jquery-textcomplete', source: 'https://rails-assets.org'
+  source 'https://rails-assets.org' do
+    gem 'rails-assets-jquery-textcomplete'
+    gem 'rails-assets-handlebars'
+  end
 
   gem 'capybara-screenshot'
   gem 'capybara-webkit'

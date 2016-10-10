@@ -14,7 +14,10 @@ gem 'hashtags', path: '../../../hashtags'
 gem 'mongoid', '~> 5'
 gem 'slim'
 
-gem 'rails-assets-jquery-textcomplete', source: 'https://rails-assets.org'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jquery-textcomplete'
+  gem 'rails-assets-handlebars'
+end
 
 group :development, :test do
   gem 'byebug'
