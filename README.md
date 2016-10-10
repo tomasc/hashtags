@@ -204,6 +204,29 @@ MyDoc.hashtags['text'].options # => hashtags builder options { only: … } or { 
 
 #### With JS textcomplete plugin
 
+Finally, it is fairly straightforward to add support for JS textcomplete that assists the user when inserting tags.
+
+Require the `hashtags` javascript.
+
+```javascript
+// application.js
+//= require hashtags
+```
+
+Optionally add default CSS.
+
+```css
+/* application.css */
+*= require hashtags
+```
+
+In a form:
+
+```slim
+fieldset
+  = form.text_area :text, data: form.object.class.hashtags['text'].dom_data
+  = render_help_for(form.object.class, :text)
+```
 
 ## Development
 

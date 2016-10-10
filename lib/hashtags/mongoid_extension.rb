@@ -7,11 +7,17 @@ Mongoid::Fields.option :hashtags do |cls, field, value|
   cls.define_singleton_method(:hashtags) { @hashtags ||= {} } unless cls.respond_to?(:hashtags)
   options = value.is_a?(Hash) ? value.slice(*%i(only except)) : {}
 
-  cls.hashtags[field.name] ||= OpenStruct.new(
-    dom_data: Hashtags::Builder.dom_data(options),
-    help: Hashtags::Builder.help(options),
-    options: options
-  )
+  cls.hashtags[field.name].define_singleton_method :dom_data do
+    Hashtags::Builder.dom_data(options)
+  end
+
+  cls.hashtags[field.name].define_singleton_method :help do
+    Hashtags::Builder.help(options)
+  end
+
+  cls.hashtags[field.name].define_singleton_method :options do
+    options
+  end
 
   field.define_singleton_method :demongoize do |*args|
     res = super(*args)

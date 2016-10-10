@@ -39,7 +39,6 @@ describe 'Mongoid extensions' do
 
   describe '.hashtags' do
     it { ExtensionDoc.hashtags.must_be_kind_of Hash }
-    it { ExtensionDoc.hashtags['text'].must_be_kind_of OpenStruct }
     it { ExtensionDoc.hashtags['text'].dom_data.must_be_kind_of Hash }
     it { ExtensionDoc.hashtags['text'].help.must_be_kind_of Array }
     it { ExtensionDoc.hashtags['text'].options.must_equal({}) }

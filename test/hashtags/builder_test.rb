@@ -79,19 +79,19 @@ describe Hashtags::Builder do
     let(:help) { Hashtags::Builder.help(options) }
 
     it { help.must_be_kind_of Array }
-    it { help.detect { |i| i.trigger == '#' }.help_values.must_equal [resource_name] }
-    it { help.detect { |i| i.trigger == '@' }.help_values.must_equal %w(user) }
-    it { help.detect { |i| i.trigger == '$' }.help_values.must_equal %w(var_1 var_2) }
+    it { help.detect { |i| i.hashtag_classes.include? MyResourceTag }.help_values.must_equal [resource_name] }
+    it { help.detect { |i| i.hashtag_classes.include? UserTag }.help_values.must_equal %w(user) }
+    it { help.detect { |i| i.hashtag_classes.include? VarTag }.help_values.must_equal %w(var_1 var_2) }
 
     describe ':only' do
       let(:options) { { only: [VarTag] } }
-      it { help.map(&:hashtag_class).wont_include [MyResourceTag] }
-      it { help.map(&:hashtag_class).wont_include [UserTag] }
+      it { help.map(&:hashtag_classes).wont_include [MyResourceTag] }
+      it { help.map(&:hashtag_classes).wont_include [UserTag] }
     end
 
     describe ':except' do
       let(:options) { { except: [UserTag] } }
-      it { help.map(&:hashtag_class).wont_include UserTag }
+      it { help.map(&:hashtag_classes).wont_include UserTag }
     end
   end
 end

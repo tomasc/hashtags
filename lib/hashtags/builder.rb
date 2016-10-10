@@ -41,7 +41,7 @@ module Hashtags
     # render help string
     def help
       hashtag_classes.group_by(&:trigger).map do |trigger, cls|
-        OpenStruct.new(hashtag_class: cls, trigger: trigger, help_values: cls.map(&:help_values).flatten.compact.sort)
+        OpenStruct.new(hashtag_classes: cls, trigger: trigger, help_values: cls.map(&:help_values).flatten.compact.sort)
       end
     end
 
