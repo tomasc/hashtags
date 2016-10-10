@@ -51,6 +51,9 @@ module Hashtags
       raise NotImplementedError
     end
 
+    def self.match_template
+    end
+
     # used to expire field with tags
     def self.cache_key
       raise NotImplementedError
@@ -107,7 +110,6 @@ module Hashtags
     end
 
     def self.values(hashtag_classes = Variable.descendants)
-      raise NotImplemented
     end
 
     # ---------------------------------------------------------------------

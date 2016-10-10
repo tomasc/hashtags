@@ -8,6 +8,13 @@ module Hashtags
       new(options).to_hashtag(str)
     end
 
+    def self.dom_data(options = {})
+      new(options).dom_data
+    end
+
+    def self.help(options = {})
+      new(options).help
+    end
 
     def initialize(options = {})
       super(options)
@@ -25,16 +32,16 @@ module Hashtags
 
     # render textcomplete dom data
     def dom_data
-      {
-        hashtag_path: Engine.routes.url_helpers.hashtags_path,
-        hashtag_strategies: hashtag_strategies
-      }
+      { hashtags: {
+        path: Engine.routes.url_helpers.resources_path,
+        strategies: hashtag_strategies
+      } }
     end
 
     # render help string
     def help
       hashtag_classes.group_by(&:trigger).map do |trigger, cls|
-        OpenStruct.new(trigger: trigger, help_values: cls.map(&:help_values).flatten.compact.sort)
+        OpenStruct.new(hashtag_class: cls, trigger: trigger, help_values: cls.map(&:help_values).flatten.compact.sort)
       end
     end
 

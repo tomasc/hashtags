@@ -5,10 +5,14 @@ describe Hashtags::Builder do
   let(:user_tag) { "@#{user.id}" }
 
   let(:res) { ::MyResource.new('123', 'Resource') }
-  let(:res_tag) { "#my_resource:#{res.title}(#{res.id})" }
+  let(:resource_name) { 'my_resource' }
+  let(:res_tag) { "##{resource_name}:#{res.title}(#{res.id})" }
 
   let(:var_1) { 'A' }
   let(:var_tag) { '$var_1' }
+
+  let(:user_result) { lambda { |id| user if user.id == id } }
+  let(:resource_result) { lambda { |id| res if res.id == id } }
 
   let(:str) { "User tag: #{user_tag}, resource tag: #{res_tag}, variable tag: #{var_tag}" }
 
@@ -16,18 +20,6 @@ describe Hashtags::Builder do
 
   describe '.to_markup' do
     let(:to_markup) do
-      user_result = lambda do |id|
-        case id
-        when user.id then user
-        end
-      end
-
-      resource_result = lambda do |id|
-        case id
-        when res.id then res
-        end
-      end
-
       ::User.stub(:find, user_result) do
         ::MyResource.stub(:find, resource_result) do
           Hashtags::Builder.to_markup(str, options)
@@ -48,20 +40,8 @@ describe Hashtags::Builder do
     end
   end
 
-  describe 'to_hashtag' do
+  describe '.to_hashtag' do
     let(:to_hashtag) do
-      user_result = lambda do |id|
-        case id
-        when user.id then user
-        end
-      end
-
-      resource_result = lambda do |id|
-        case id
-        when res.id then res
-        end
-      end
-
       ::User.stub(:find, user_result) do
         ::MyResource.stub(:find, resource_result) do
           Hashtags::Builder.to_hashtag(str, options)
@@ -83,6 +63,35 @@ describe Hashtags::Builder do
     describe ':except' do
       let(:options) { { except: [UserTag] } }
       it { to_hashtag.must_equal "User tag: #{user_tag}, resource tag: #{res_tag}, variable tag: #{var_tag}" }
+    end
+  end
+
+  describe '.dom_data' do
+    let(:dom_data) { Hashtags::Builder.dom_data(options) }
+
+    it { dom_data.must_be_kind_of Hash }
+    it { dom_data[:hashtags].must_be_kind_of Hash }
+    it { dom_data[:hashtags][:path].must_be :present? }
+    it { dom_data[:hashtags][:strategies].must_be :present? }
+  end
+
+  describe '.help' do
+    let(:help) { Hashtags::Builder.help(options) }
+
+    it { help.must_be_kind_of Array }
+    it { help.detect { |i| i.trigger == '#' }.help_values.must_equal [resource_name] }
+    it { help.detect { |i| i.trigger == '@' }.help_values.must_equal %w(user) }
+    it { help.detect { |i| i.trigger == '$' }.help_values.must_equal %w(var_1 var_2) }
+
+    describe ':only' do
+      let(:options) { { only: [VarTag] } }
+      it { help.map(&:hashtag_class).wont_include [MyResourceTag] }
+      it { help.map(&:hashtag_class).wont_include [UserTag] }
+    end
+
+    describe ':except' do
+      let(:options) { { except: [UserTag] } }
+      it { help.map(&:hashtag_class).wont_include UserTag }
     end
   end
 end

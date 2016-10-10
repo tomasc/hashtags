@@ -163,24 +163,44 @@ end
 
 ```ruby
 str = 'Current document: #doc:Foo(123).'
-Modulor::HashTag::Builder.to_markup(str) # => 'Current document: Foo.'
+Hashtags::Builder.to_markup(str) # => 'Current document: Foo.'
 ```
 
 Since the hashtags might contain human-readable values (as in the `Resource` tags), it is often helpful to update them:
 
 ```ruby
 doc.title = 'Bar'
-Modulor::HashTag::Builder.to_hashtag(str) # => 'Current document: #doc:Bar(123).'
+Hashtags::Builder.to_hashtag(str) # => 'Current document: #doc:Bar(123).'
 ```
 
 Optionally, a list of only/except classes can be specified, useful for example for limiting available hashtags in certain situations.
 
 ```ruby
-Modulor::HashTag::Builder.to_markup(str, only: [LocationTag])
-Modulor::HashTag::Builder.to_hashtag(str, except: [UserTag])
+Hashtags::Builder.to_markup(str, only: [LocationTag])
+Hashtags::Builder.to_hashtag(str, except: [UserTag])
 ```
 
-#### With model helpers
+#### With Mongoid Extension
+
+In case you are using Mongoid, you can use the `hashtags` options to enable hashtags processing and additional helpers. The hashtags will be also automatically processed whenever you save your data to the database (using the above-mentioned `to_hashtag` method).
+
+```ruby
+class MyDoc
+  include Mongoid::Document
+  field :text, type: String, hashtags: true # or { only: … } or # { except: … }
+end
+
+my_doc.text.to_markup # => field value with hashtags converted to markup
+my_doc.text.to_hashtag # => field value with hashtags updated
+```
+
+Next to that the following helper class methods will be defined:
+
+```ruby
+MyDoc.hashtags['text'].dom_data # => outcome of builder's dom_data method
+MyDoc.hashtags['text'].help # => outcome of builder's help method
+MyDoc.hashtags['text'].options # => hashtags builder options { only: … } or { except: … }
+```
 
 #### With JS textcomplete plugin
 
