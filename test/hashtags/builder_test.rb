@@ -36,6 +36,16 @@ describe Hashtags::Builder do
     end
 
     it { to_markup.must_equal "User tag: #{user.name}, resource tag: #{res.title}, variable tag: #{var_1}" }
+
+    describe ':only' do
+      let(:options) { { only: [VarTag] } }
+      it { to_markup.must_equal "User tag: #{user_tag}, resource tag: #{res_tag}, variable tag: #{var_1}" }
+    end
+
+    describe ':except' do
+      let(:options) { { except: [VarTag] } }
+      it { to_markup.must_equal "User tag: #{user.name}, resource tag: #{res.title}, variable tag: #{var_tag}" }
+    end
   end
 
   describe 'to_hashtag' do
@@ -64,5 +74,15 @@ describe Hashtags::Builder do
     end
 
     it { to_hashtag.must_equal "User tag: @Sunny, resource tag: #{res_tag}, variable tag: #{var_tag}" }
+
+    describe ':only' do
+      let(:options) { { only: [VarTag] } }
+      it { to_hashtag.must_equal "User tag: #{user_tag}, resource tag: #{res_tag}, variable tag: #{var_tag}" }
+    end
+
+    describe ':except' do
+      let(:options) { { except: [UserTag] } }
+      it { to_hashtag.must_equal "User tag: #{user_tag}, resource tag: #{res_tag}, variable tag: #{var_tag}" }
+    end
   end
 end

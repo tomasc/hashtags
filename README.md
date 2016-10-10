@@ -173,7 +173,12 @@ doc.title = 'Bar'
 Modulor::HashTag::Builder.to_hashtag(str) # => 'Current document: #doc:Bar(123).'
 ```
 
-Optionally, …
+Optionally, a list of only/except classes can be specified, useful for example for limiting available hashtags in certain situations.
+
+```ruby
+Modulor::HashTag::Builder.to_markup(str, only: [LocationTag])
+Modulor::HashTag::Builder.to_hashtag(str, except: [UserTag])
+```
 
 #### With model helpers
 
