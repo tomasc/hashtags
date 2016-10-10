@@ -67,7 +67,7 @@ module Hashtags
 
     # updates found tags with tag value from resource
     # @jtschichold => @JTschichold
-    def hash_tag(match)
+    def hashtag(match)
       return unless id = match[self.class.match_index]
       return unless user = resource(id)
       Handlebars::Context.new

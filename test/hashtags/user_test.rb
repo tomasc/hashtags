@@ -24,10 +24,10 @@ describe Hashtags::User do
     end
   end
 
-  describe '#to_hash_tag' do
+  describe '#to_hashtag' do
     it 'updates the original str with new values' do
       user_1.id = 'Sunny'
-      subject.to_hash_tag.must_equal "Say hello to @Sunny and @#{user_2.id}!"
+      subject.to_hashtag.must_equal "Say hello to @Sunny and @#{user_2.id}!"
     end
   end
 end

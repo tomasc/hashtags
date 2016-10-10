@@ -20,7 +20,7 @@ class MyResourceTag < Hashtags::Resource
     :title
   end
 
-  def resource(tag_attribute_value)
-    self.class.resource_class.find(tag_attribute_value)
+  def resource(value)
+    self.class.resource_class.find(value)
   end
 end

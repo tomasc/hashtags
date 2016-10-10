@@ -8,6 +8,14 @@ module Hashtags
   # you might want to inherit from Base.
 
   class Base < Struct.new(:str)
+    def self.to_markup(str)
+      new(str).to_markup
+    end
+
+    def self.to_hashtag(str)
+      new(str).to_hashtag
+    end
+
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
     end
@@ -25,7 +33,7 @@ module Hashtags
     end
 
     # to be passed to textcomplete
-    def self.strategy(hash_tag_classes)
+    def self.strategy(hashtag_classes)
       {
         class_name: to_s,
         match_regexp: json_regexp(match_regexp),
@@ -34,7 +42,7 @@ module Hashtags
         path: path,
         replace: replace,
         template: template,
-        values: values(hash_tag_classes)
+        values: values(hashtag_classes)
       }
     end
 
@@ -59,7 +67,7 @@ module Hashtags
 
     # implement to preload hash tag values,
     # fe in case there is limited number (ie variable names)
-    def self.values(hash_tag_classes)
+    def self.values(hashtag_classes)
     end
 
     # implement to show which values particular trigger offers
@@ -98,7 +106,7 @@ module Hashtags
       raise NotImplementedError
     end
 
-    def self.values(hash_tag_classes = Variable.descendants)
+    def self.values(hashtag_classes = Variable.descendants)
       raise NotImplemented
     end
 
@@ -129,9 +137,9 @@ module Hashtags
     end
 
     # Updates hash tags
-    def to_hash_tag
+    def to_hashtag
       str.to_s.gsub(self.class.regexp) do |match|
-        ht = hash_tag(Regexp.last_match)
+        ht = hashtag(Regexp.last_match)
         match = ht || match
       end
     end
@@ -139,7 +147,7 @@ module Hashtags
     # ---------------------------------------------------------------------
 
     # the proper hashtag (so it can be updated automatically)
-    def hash_tag(match)
+    def hashtag(match)
       raise NotImplementedError
     end
 

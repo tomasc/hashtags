@@ -9,11 +9,11 @@ module Hashtags
     private
 
     def resources_as_json
-      return unless hash_tag_class
-      # @resources_as_json ||= hash_tag_resource_class.as_json(query)
+      return unless hashtag_class
+      # @resources_as_json ||= hashtag_resource_class.as_json(query)
     end
 
-    def hash_tag_class
+    def hashtag_class
       Resource.find_by_resource_type(resource_type)
     end
 

@@ -60,7 +60,7 @@ module Hashtags
     end
 
     def self.replace
-      "#{trigger}#{resource_name}:{{ tag_attribute }}({{ id }})"
+      "#{trigger}#{resource_name}:{{ #{tag_attribute} }}({{ id }})"
     end
 
     def self.template
@@ -69,12 +69,12 @@ module Hashtags
 
     private # =============================================================
 
-    def hash_tag(match)
+    def hashtag(match)
       return unless id = match[self.class.match_index]
       return unless res = resource(id)
       Handlebars::Context.new
                          .compile(self.class.replace)
-                         .call(id: res.id.to_s, self.class.tag_attribute => resource.send(self.class.tag_attribute))
+                         .call(id: res.id.to_s, self.class.tag_attribute => res.send(self.class.tag_attribute))
     end
 
     def markup(match)

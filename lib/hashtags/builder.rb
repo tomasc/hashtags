@@ -1,30 +1,39 @@
 module Hashtags
   class Builder < Struct.new(:options)
+    def self.to_markup(str, options = {})
+      new(options).to_markup(str)
+    end
+
+    def self.to_hashtag(str, options = {})
+      new(options).to_hashtag(str)
+    end
+
+
     def initialize(options = {})
       super(options)
     end
 
     # collects markup from all hashtags classes
     def to_markup(str)
-      hash_tag_classes.inject(str) { |res, cls| cls.new(res).to_markup }
+      hashtag_classes.inject(str) { |res, cls| cls.to_markup(res) }
     end
 
     # collects hashtags from all hashtags classes
-    def to_hash_tag(str)
-      hash_tag_classes.inject(str) { |res, cls| cls.new(res).to_hash_tag }
+    def to_hashtag(str)
+      hashtag_classes.inject(str) { |res, cls| cls.to_hashtag(res) }
     end
 
     # render textcomplete dom data
     def dom_data
       {
-        hash_tag_path: Engine.routes.url_helpers.hashtags_path,
-        hash_tag_strategies: hash_tag_strategies
+        hashtag_path: Engine.routes.url_helpers.hashtags_path,
+        hashtag_strategies: hashtag_strategies
       }
     end
 
     # render help string
     def help
-      hash_tag_classes.group_by(&:trigger).map do |trigger, cls|
+      hashtag_classes.group_by(&:trigger).map do |trigger, cls|
         OpenStruct.new(trigger: trigger, help_values: cls.map(&:help_values).flatten.compact.sort)
       end
     end
@@ -39,16 +48,16 @@ module Hashtags
 
     private
 
-    def hash_tag_classes
+    def hashtag_classes
       filter_classes(
-        Hashtags.resource_classes +
-        Hashtags.user_classes +
-        Hashtags.variable_classes
+        Resource.resource_classes +
+        User.user_classes +
+        Variable.variable_classes
       )
     end
 
-    def hash_tag_strategies
-      cls = hash_tag_classes.dup
+    def hashtag_strategies
+      cls = hashtag_classes.dup
 
       # add resource type strategy if needed
       cls << ResourceType if cls.any? { |c| c < Resource } && !cls.include?(ResourceType)
@@ -59,7 +68,7 @@ module Hashtags
         cls << Variable
       end
 
-      cls.collect { |c| c.strategy(hash_tag_classes) }
+      cls.collect { |c| c.strategy(hashtag_classes) }
     end
   end
 end

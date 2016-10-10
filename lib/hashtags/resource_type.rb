@@ -35,8 +35,8 @@ module Hashtags
 
     # ---------------------------------------------------------------------
 
-    def self.values(hash_tag_classes = Resource.descendants)
-      (resource_classes & hash_tag_classes).map(&:resource_name)
+    def self.values(hashtag_classes = Resource.descendants)
+      (resource_classes & hashtag_classes).map(&:resource_name)
     end
 
     def self.cache_key
@@ -45,7 +45,7 @@ module Hashtags
 
     private # =============================================================
 
-    def hash_tag(match)
+    def hashtag(match)
       # do nothing
     end
 

@@ -10,7 +10,7 @@ Rails engine to facilitate inline text hashtags.
 Additionally:
 
 - the user can be assisted with a dropdown triggered by a special character (`#`, `@`, `$`, ...)
-- `has_hash_tag_field` method is available to assist when rendering HTML input fields incl. data attributes, help, and supporting only specified hashtag classes
+- `has_hashtag_field` method is available to assist when rendering HTML input fields incl. data attributes, help, and supporting only specified hashtag classes
 - hashtags typically have `cache_key` defined on class so corresponding fragment cache can be easily expired
 
 ## Installation
@@ -35,12 +35,6 @@ $ gem install hashtags
 
 ## Usage
 
-The hashtags have the following structure:
-
-```
-<trigger>(type)(human_id)<value>
-```
-
 The three following types are included in this gem, however the gem's design allows for definition of new types and their subclassing.
 
 ### Hash tag types
@@ -52,6 +46,8 @@ The three following types are included in this gem, however the gem's design all
 ```
 
 #### Resource hash tag
+
+These typically include human-readable version of the resource (in the example below it would be `Home`).
 
 ```
 #location:Home(12345)
@@ -145,7 +141,7 @@ See `Hashtags::Variable` and override its methods on your subclass as necessary.
 
 ```ruby
 class VariableTag < Hashtags::Resource
-  def self.values(hash_tag_classes = Hashtags::Variable.descendants)
+  def self.values(hashtag_classes = Hashtags::Variable.descendants)
     # %w(
     #   variable_1
     #   variable_2
@@ -160,6 +156,29 @@ class VariableTag < Hashtags::Resource
   end
 end
 ```
+
+### Usage in an app
+
+#### Core
+
+```ruby
+str = 'Current document: #doc:Foo(123).'
+Modulor::HashTag::Builder.to_markup(str) # => 'Current document: Foo.'
+```
+
+Since the hashtags might contain human-readable values (as in the `Resource` tags), it is often helpful to update them:
+
+```ruby
+doc.title = 'Bar'
+Modulor::HashTag::Builder.to_hashtag(str) # => 'Current document: #doc:Bar(123).'
+```
+
+Optionally, …
+
+#### With model helpers
+
+#### With JS textcomplete plugin
+
 
 ## Development
 

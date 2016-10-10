@@ -8,7 +8,7 @@ module Hashtags
       /#{Regexp.escape(trigger)}(.+?)\b/i
     end
 
-    def self.values(_hash_tag_classes = Variable.descendants)
+    def self.values(hashtag_classes = Variable.descendants)
       raise NotImplemented
     end
 
@@ -35,18 +35,18 @@ module Hashtags
       '{{ this }}'
     end
 
-    def self.strategy(hash_tag_classes)
-      super.tap { |obj| obj[:values] = compound_values(hash_tag_classes) }
+    def self.strategy(hashtag_classes)
+      super.tap { |obj| obj[:values] = compound_values(hashtag_classes) }
     end
 
-    def self.compound_values(hash_tag_classes)
-      cls = Builder.new.filter_classes(variable_classes & hash_tag_classes)
-      cls.map { |i| i.values(hash_tag_classes) }.flatten.compact
+    def self.compound_values(hashtag_classes)
+      cls = Builder.new.filter_classes(variable_classes & hashtag_classes)
+      cls.map { |i| i.values(hashtag_classes) }.flatten.compact
     end
 
     private # =============================================================
 
-    def hash_tag(match)
+    def hashtag(match)
       return unless name(match)
       [self.class.trigger, name(match)].join
     end

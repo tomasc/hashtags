@@ -3,7 +3,7 @@ class User < Struct.new(:id, :name)
     'cache_key'
   end
 
-  def self.find(tag_attribute_value)
+  def self.find(value)
   end
 
   def to_s
@@ -24,7 +24,7 @@ class UserTag < Hashtags::User
     :name
   end
 
-  def resource(tag_attribute_value)
-    self.class.resource_class.find(tag_attribute_value)
+  def resource(value)
+    self.class.resource_class.find(value)
   end
 end

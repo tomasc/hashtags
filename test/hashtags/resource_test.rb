@@ -25,10 +25,10 @@ describe Hashtags::Resource do
     end
   end
 
-  describe '#to_hash_tag' do
+  describe '#to_hashtag' do
     it 'updates the original str with new values' do
       res_1.title = 'Sunny'
-      subject.to_hash_tag.must_equal "Resources: #my_resource:Sunny(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})"
+      subject.to_hashtag.must_equal "Resources: #my_resource:Sunny(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})"
     end
   end
 end

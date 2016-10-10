@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '~> 4.2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -11,9 +10,11 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'hashtags', git: 'git@github.com:tomasc/hashtags.git', branch: 'master'
-gem 'mongoid', '>= 5'
+gem 'hashtags', path: '../../../hashtags'
+gem 'mongoid', '~> 5'
 gem 'slim'
+
+gem 'rails-assets-jquery-textcomplete', source: 'https://rails-assets.org'
 
 group :development, :test do
   gem 'byebug'
