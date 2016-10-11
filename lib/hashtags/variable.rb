@@ -20,7 +20,7 @@ module Hashtags
     # JS
 
     def self.match_regexp
-      /(\A#{Regexp.escape(trigger)}|\s#{Regexp.escape(trigger)})(\w*)\z/
+      /(\A#{Regexp.escape(trigger)}|\s#{Regexp.escape(trigger)})(\w{1,})\z/
     end
 
     def self.match_index
@@ -28,7 +28,7 @@ module Hashtags
     end
 
     def self.replace
-      "#{trigger}1{{ this }}"
+      "#{trigger}{{ this }}"
     end
 
     def self.template

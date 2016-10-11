@@ -48,7 +48,7 @@ module Hashtags
     # JS
 
     def self.match_regexp
-      /(#{trigger}#{resource_name}\:)(\w*)\z/
+      /(#{Regexp.escape(trigger)}#{resource_name}\:)(\w{1,})\z/
     end
 
     def self.match_index

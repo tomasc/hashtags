@@ -33,7 +33,7 @@ module Hashtags
     # render textcomplete dom data
     def dom_data
       { hashtags: {
-        path: Engine.routes.url_helpers.resources_path,
+        path: Engine.routes.url_helpers.hashtags_resources_path,
         strategies: hashtag_strategies
       } }
     end

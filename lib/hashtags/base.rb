@@ -105,7 +105,7 @@ module Hashtags
 
     # return JSON version of resources that match query
     # this is returned when user starts typing (the query)
-    def self.resources_for_query(query)
+    def self.json_for_query(query)
       raise NotImplementedError
     end
 

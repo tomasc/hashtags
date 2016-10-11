@@ -3,7 +3,15 @@ class User < Struct.new(:id, :name)
     'cache_key'
   end
 
-  def self.find(value)
+  def self.all
+    [
+      new('JTschichold', 'Jan Tschichold'),
+      new('KGerstner', 'Karl Gerstner')
+    ]
+  end
+
+  def self.find(id)
+    all.detect{ |i| i.id == id.to_s }
   end
 
   def to_s

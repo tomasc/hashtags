@@ -11,6 +11,12 @@ class MyResourceTag < Hashtags::Resource
     :title
   end
 
+  def self.resources_for_query(query)
+    resource_class.all.select do |res|
+      res.title =~ /#{Regexp.escape(query)}/i
+    end
+  end
+
   def resource(value)
     self.class.resource_class.find(value)
   end

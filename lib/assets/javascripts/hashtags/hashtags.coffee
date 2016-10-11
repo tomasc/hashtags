@@ -33,10 +33,8 @@
         context: (text) -> text.toLowerCase()
         match: ///#{data.match_regexp}///
         search: (term, callback, match) =>
-          if data.values
-            @search_values(data, term, callback, match)
-          else
-            @search_remote(data, term, callback, match)
+          if data.values then @search_values(data, term, callback, match)
+          else @search_remote(data, term, callback, match)
         replace: (resource, event) -> Handlebars.compile(data.replace)(resource)
         template: (resource, term) -> Handlebars.compile(data.template)(resource)
       }

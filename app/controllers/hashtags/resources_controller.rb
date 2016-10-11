@@ -1,28 +1,28 @@
 module Hashtags
   class ResourcesController < ApplicationController
-    respond_to :json
-
     def index
-      respond_with resources_as_json, root: false
+      respond_to do |format|
+        format.json { render json: resources_as_json, root: false }
+      end
     end
 
     private
 
     def resources_as_json
-      return unless hashtag_class
-      # @resources_as_json ||= hashtag_resource_class.as_json(query)
-    end
-
-    def hashtag_class
-      Resource.find_by_resource_type(resource_type)
+      return unless hashtag_class.present?
+      @resources_as_json ||= hashtag_class.resources_for_query(query)
     end
 
     def query
       URI.decode(params.fetch(:q, nil).to_s)
     end
 
-    def resource_type
-      params[:resource_type]
+    def hashtag_class
+      class_name.safe_constantize
+    end
+
+    def class_name
+      params[:class_name]
     end
   end
 end

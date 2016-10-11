@@ -11,6 +11,12 @@ class UserTag < Hashtags::User
     :name
   end
 
+  def self.resources_for_query(query)
+    resource_class.all.select do |res|
+      res.id =~ /#{Regexp.escape(query)}/i
+    end
+  end
+
   def resource(value)
     self.class.resource_class.find(value)
   end

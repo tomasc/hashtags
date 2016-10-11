@@ -1,10 +1,10 @@
 require 'test_helper'
 
 describe Hashtags::Builder do
-  let(:user) { ::User.new('JTschichold', 'Jan Tschichold') }
+  let(:user) { ::User.find('JTschichold') }
   let(:user_tag) { "@#{user.id}" }
 
-  let(:res) { ::MyResource.new('123', 'Resource') }
+  let(:res) { ::MyResource.find(1) }
   let(:resource_name) { 'my_resource' }
   let(:res_tag) { "##{resource_name}:#{res.title}(#{res.id})" }
 
@@ -19,13 +19,7 @@ describe Hashtags::Builder do
   let(:options) { {} }
 
   describe '.to_markup' do
-    let(:to_markup) do
-      ::User.stub(:find, user_result) do
-        ::MyResource.stub(:find, resource_result) do
-          Hashtags::Builder.to_markup(str, options)
-        end
-      end
-    end
+    let(:to_markup) { Hashtags::Builder.to_markup(str, options) }
 
     it { to_markup.must_equal "User tag: #{user.name}, resource tag: #{res.title}, variable tag: #{var_1}" }
 
@@ -41,17 +35,9 @@ describe Hashtags::Builder do
   end
 
   describe '.to_hashtag' do
-    let(:to_hashtag) do
-      ::User.stub(:find, user_result) do
-        ::MyResource.stub(:find, resource_result) do
-          Hashtags::Builder.to_hashtag(str, options)
-        end
-      end
-    end
+    let(:to_hashtag) { Hashtags::Builder.to_hashtag(str, options) }
 
-    before do
-      user.id = 'Sunny'
-    end
+    before { user.id = 'Sunny' }
 
     it { to_hashtag.must_equal "User tag: @Sunny, resource tag: #{res_tag}, variable tag: #{var_tag}" }
 

@@ -1,8 +1,8 @@
 require 'test_helper'
 
 describe Hashtags::Resource do
-  let(:res_1) { ::MyResource.new('123', 'Resource 1') }
-  let(:res_2) { ::MyResource.new('456', 'Resource 2') }
+  let(:res_1) { ::MyResource.find(1) }
+  let(:res_2) { ::MyResource.find(2) }
   let(:str) { "Resources: #my_resource:#{res_1.title}(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})" }
 
   subject { MyResourceTag.new(str) }
@@ -11,24 +11,14 @@ describe Hashtags::Resource do
   it { Hashtags::Resource.find_by_resource_type(:my_resource).must_equal MyResourceTag }
 
   describe '#to_markup' do
-    it 'should replace hastags with markup' do
-      find_result = lambda do |id|
-        case id
-        when res_1.id then res_1
-        when res_2.id then res_2
-        end
-      end
-
-      ::MyResource.stub(:find, find_result) do
-        subject.to_markup.must_equal "Resources: #{res_1.title} & #{res_2.title}"
-      end
-    end
+    it { subject.to_markup.must_equal "Resources: #{res_1.title} & #{res_2.title}" }
   end
 
   describe '#to_hashtag' do
-    it 'updates the original str with new values' do
+    before do
+      res_1.id = 3
       res_1.title = 'Sunny'
-      subject.to_hashtag.must_equal "Resources: #my_resource:Sunny(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})"
     end
+    it { subject.to_hashtag.must_equal "Resources: #my_resource:Sunny(#{res_1.id}) & #my_resource:#{res_2.title}(#{res_2.id})" }
   end
 end

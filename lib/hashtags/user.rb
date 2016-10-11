@@ -44,11 +44,11 @@ module Hashtags
     # JS
 
     def self.match_regexp
-      /(\A#{trigger}|\s#{trigger})(\w{1,})\z/
+      /(\A#{Regexp.escape(trigger)}|\s#{Regexp.escape(trigger)})(\w{1,})\z/
     end
 
     def self.match_index
-      1
+      2
     end
 
     def self.match_template
@@ -56,7 +56,7 @@ module Hashtags
     end
 
     def self.replace
-      "$1{{ #{tag_attribute} }}"
+      "#{trigger}{{ #{tag_attribute} }}"
     end
 
     def self.template
@@ -68,24 +68,24 @@ module Hashtags
     # updates found tags with tag value from resource
     # @jtschichold => @JTschichold
     def hashtag(match)
-      return unless id = match[self.class.match_index]
+      return unless id = match[self.class.match_index-1]
       return unless user = resource(id)
       Handlebars::Context.new
-                         .compile(self.class.replace.gsub('$1', Regexp.escape(self.class.trigger)))
+                         .compile(self.class.replace)
                          .call(self.class.tag_attribute => user.send(self.class.tag_attribute))
     end
 
     # replaces tags with result from resource
     # @JTschichold => Jan Tschichold
     def markup(match)
-      return unless id = match[self.class.match_index]
+      return unless id = match[self.class.match_index-1]
       return unless user = resource(id)
       user.send(self.class.result_attribute)
     end
 
     # finds resource based on tag_attribute_value
     # for example: resource_class.where(username: tag_attribute_value).first
-    def resource(tag_attribute_value)
+    def resource(value)
       raise NotImplemented
     end
   end
