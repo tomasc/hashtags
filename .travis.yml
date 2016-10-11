@@ -1,6 +1,6 @@
 sudo: false
 language: ruby
-script: 'xvfb-run bundle exec rake'
+script: 'xvfb-run -a bundle exec rake'
 rvm:
   - 2.2.5
 before_install:
