@@ -85,8 +85,7 @@ class UserTag < Hashtags::User
   end
 
   def self.resources_for_query(query)
-    # return JSON representation of resources matching query
-    # { label: 'displayed in dropdown', value: 'inserted in the tag', id: … }
+    # return resources matching query
     # this will be called from the controller as user types
   end
 
@@ -121,8 +120,7 @@ class LocationTag < Hashtags::Resource
   end
 
   def self.resources_for_query(query)
-    # return JSON representation of resources matching query
-    # { label: 'displayed in dropdown', value: 'inserted in the tag', id: … }
+    # return resources matching query
     # this will be called from the controller as user types
   end
 
