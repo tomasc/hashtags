@@ -13,7 +13,6 @@ require 'minitest/rails'
 require 'minitest/spec'
 
 require 'slim'
-
 require 'hashtags'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
