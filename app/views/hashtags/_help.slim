@@ -1,8 +1,8 @@
-div.hash_tag.help
+div.hashtags.help
   - help.each do |item|
-    span.help
+    span.trigger_group
       => I18n.t(:type, scope: %i(hashtags/builders help))
       span.trigger => item.trigger
-      =<> I18n.t(:for, scope: %i(hashtags/builders help))
+      => I18n.t(:for, scope: %i(hashtags/builders help))
       - item.help_values.each_with_index do |value, index|
         span.item = value

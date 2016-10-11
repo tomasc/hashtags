@@ -1,0 +1,11 @@
+.hashtags.help {
+  .trigger_group {
+    &:not(:last-child):after {
+      content: '; ';
+    }
+
+    .item:not(:last-child):after {
+      content: ', ';
+    }
+  }
+}
