@@ -215,7 +215,9 @@ Optionally add default CSS.
 
 ```css
 /* application.css */
-*= require hashtags
+/*
+ *= require hashtags
+*/
 ```
 
 In a form:

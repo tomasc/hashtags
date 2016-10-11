@@ -1,0 +1,21 @@
+ul.textcomplete-dropdown {
+  background-color: white;
+  border: 1px solid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li.textcomplete-item {
+    border-radius: 0;
+    margin: 0;
+    padding: .25em .5em;
+    &:not(:last-child) {
+      border-bottom: 1px solid;
+    }
+
+    &:hover, &.active {
+      cursor: pointer;
+      background-color: yellow;
+    }
+  }
+}
