@@ -215,6 +215,12 @@ Require the `hashtags` javascript.
 //= require hashtags
 ```
 
+In routes:
+
+```ruby
+mount Hashtags::Engine => '/'
+```
+
 Optionally add default CSS.
 
 ```css
