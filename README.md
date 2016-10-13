@@ -10,8 +10,12 @@ Rails engine to facilitate inline text hashtags.
 Additionally:
 
 - the user can be assisted with a dropdown triggered by a special character (`#`, `@`, `$`, ...)
-- `has_hashtag_field` method is available to assist when rendering HTML input fields incl. data attributes, help, and supporting only specified hashtag classes
+- a Mongoid field option add support for `.to_markup` and `.to_hashtag` methods and more
 - hashtags typically have `cache_key` defined on class so corresponding fragment cache can be easily expired
+
+TODOs:
+
+- There's an implicit support for Mongoid, but it should be very easy to make that conditional ev. add support for other ORMs or libs such as Virtus etc.
 
 ## Installation
 
