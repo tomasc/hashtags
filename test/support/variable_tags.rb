@@ -1,5 +1,5 @@
 class VarTag < Hashtags::Variable
-  def self.values(hashtag_classes = Hashtags::Variable.descendants)
+  def self.values(_hashtag_classes = Hashtags::Variable.descendants)
     %w(var_1 var_2)
   end
 

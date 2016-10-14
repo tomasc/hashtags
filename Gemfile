@@ -25,6 +25,7 @@ group :test do
   gem 'mongoid'
   gem 'mongoid-minitest'
   gem 'minitest-around'
+  gem 'minitest-fail-fast'
   gem 'minitest-matchers_vaccine'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'

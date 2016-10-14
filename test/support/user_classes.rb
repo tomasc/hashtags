@@ -11,7 +11,7 @@ class User < Struct.new(:id, :name)
   end
 
   def self.find(id)
-    all.detect{ |i| i.id == id.to_s }
+    all.detect { |i| i.id == id.to_s }
   end
 
   def to_s

@@ -11,6 +11,6 @@ class MyResource < Struct.new(:id, :title)
   end
 
   def self.find(id)
-    all.detect{ |i| i.id == id.to_i }
+    all.detect { |i| i.id == id.to_i }
   end
 end

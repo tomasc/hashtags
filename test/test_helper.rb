@@ -9,6 +9,7 @@ require 'minitest'
 require 'minitest/around'
 require 'minitest/around/spec'
 require 'minitest/autorun'
+require 'minitest/fail_fast'
 require 'minitest/rails'
 require 'minitest/spec'
 
