@@ -22,10 +22,10 @@ Mongoid::Fields.option :hashtags do |cls, field, value|
   field.define_singleton_method :demongoize do |*args|
     res = super(*args)
     res.define_singleton_method :to_markup do
-      Hashtags::Builder.to_markup(res.to_s, options)
+      Hashtags::Builder.to_markup(res.to_s, options).html_safe
     end
     res.define_singleton_method :to_hashtag do
-      Hashtags::Builder.to_hashtag(res.to_s, options)
+      Hashtags::Builder.to_hashtag(res.to_s, options).html_safe
     end
     res
   end
