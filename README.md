@@ -142,7 +142,7 @@ Implement the `values` class method instead of the `resources_for_query` to prel
 See `Hashtags::Variable` and override its methods on your subclass as necessary. Typically it would be at least the following:
 
 ```ruby
-class VariableTag < Hashtags::Resource
+class VariableTag < Hashtags::Variable
   def self.values(hashtag_classes = Hashtags::Variable.descendants)
     # %w(
     #   variable_1
