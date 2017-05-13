@@ -51,10 +51,6 @@ module Hashtags
       2
     end
 
-    def self.match_template
-      "{{ #{tag_attribute} }}"
-    end
-
     def self.replace
       "#{trigger}{{ #{tag_attribute} }}"
     end

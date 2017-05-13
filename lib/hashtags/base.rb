@@ -51,7 +51,10 @@ module Hashtags
       raise NotImplementedError
     end
 
+    # matched against as user types
+    # typically this would equal to the .template (match what you see)
     def self.match_template
+      template
     end
 
     # used to expire field with tags

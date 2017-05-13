@@ -55,10 +55,6 @@ module Hashtags
       2
     end
 
-    def self.match_template
-      "{{ #{tag_attribute} }}"
-    end
-
     def self.replace
       "#{trigger}#{resource_name}:{{ #{tag_attribute} }}({{ id }})"
     end
