@@ -56,7 +56,6 @@
       $.getJSON( url , q: term, class_name: data.class_name )
         .done( (resp) ->
           callback $.map( resp, (resource) ->
-            console.log Handlebars.compile(match_template)(resource), term
             if Handlebars.compile(match_template)(resource).match(///#{term}///i) then resource else null
           )
         )
