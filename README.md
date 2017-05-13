@@ -235,7 +235,7 @@ In a form:
 ```slim
 fieldset
   = form.text_area :text, data: form.object.class.hashtags['text'].dom_data
-  = render_help_for(form.object.class, :text)
+  = render_hashtags_help_for(form.object.class, :text)
 ```
 
 ## Development

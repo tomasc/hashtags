@@ -21,7 +21,12 @@
       @init()
 
     init: ->
-      @$element.textcomplete(@get_strategies())
+      @$element.textcomplete(
+        @get_strategies(),
+        {
+          dropdownClassName: 'hashtags dropdown-menu textcomplete-dropdown'
+        }
+      )
 
     get_data: -> @$element.data 'hashtags'
     get_default_path: -> @get_data()['path']

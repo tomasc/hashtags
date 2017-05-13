@@ -18,7 +18,7 @@ module Hashtags
     # JS
 
     def self.match_regexp
-      /(\A#{trigger}|\s#{trigger})(\w*)\z/
+      /(#{trigger})(\w*)\z/
     end
 
     def self.match_index
