@@ -14,8 +14,8 @@ group :test do
   gem 'jbuilder', '~> 2.0'
 
   source 'https://rails-assets.org' do
-    gem 'rails-assets-jquery-textcomplete'
-    gem 'rails-assets-handlebars'
+    gem 'rails-assets-jquery-textcomplete', '~> 1.8'
+    gem 'rails-assets-handlebars', '~> 4.0'
   end
 
   gem 'capybara-screenshot'

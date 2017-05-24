@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.3
+
+* explicit `rails-assets-jquery-textcomplete` dependency
+
 ## 0.2.2
 
 * refactor to avoid conflicts between classes
