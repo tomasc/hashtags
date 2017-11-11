@@ -1339,10 +1339,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: 'init',
       value: function init() {
         this.editor = new _textarea2.default(this.element);
-        this.textcomplete = new _textcomplete2.default(editor);
-        return this.textcomplete.register(this.get_strategies(), {
-          dropdownClassName: 'hashtags dropdown-menu textcomplete-dropdown'
+        this.textcomplete = new _textcomplete2.default(this.editor, {
+          dropdown: {
+            className: 'hashtags dropdown-menu textcomplete-dropdown'
+          }
         });
+        return this.textcomplete.register(this.get_strategies());
       }
     }, {
       key: 'get_data',

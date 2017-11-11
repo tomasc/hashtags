@@ -1,7 +1,7 @@
-import Handlebars from 'handlebars/dist/handlebars.min.js'
-import Textcomplete from 'textcomplete/lib/textcomplete'
-import Textarea from 'textcomplete/lib/textarea'
+#= require handlebars
+#= require jquery-textcomplete
 
+# https://github.com/zenorocha/jquery-boilerplate
 (($, window) ->
   pluginName = 'hashtags'
   document = window.document
@@ -21,9 +21,12 @@ import Textarea from 'textcomplete/lib/textarea'
       @init()
 
     init: ->
-      @editor = new Textarea(@element)
-      @textcomplete = new Textcomplete(@editor, dropdown: { className: 'hashtags dropdown-menu textcomplete-dropdown' })
-      @textcomplete.register(@get_strategies())
+      @$element.textcomplete(
+        @get_strategies(),
+        {
+          dropdownClassName: 'hashtags dropdown-menu textcomplete-dropdown'
+        }
+      )
 
     get_data: -> @$element.data 'hashtags'
     get_default_path: -> @get_data()['path']
@@ -65,4 +68,4 @@ import Textarea from 'textcomplete/lib/textarea'
 
 )(jQuery, window)
 
-# $ -> $('input[type="text"][data-hashtags], textarea[data-hashtags]').hashtags()
+$ -> $('input[type="text"][data-hashtags], textarea[data-hashtags]').hashtags()
