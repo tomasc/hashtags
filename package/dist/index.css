@@ -1,0 +1,20 @@
+.hashtags.help .trigger_group:not(:last-child):after {
+  content: '; '; }
+
+.hashtags.help .trigger_group .item:not(:last-child):after {
+  content: ', '; }
+ul.hashtags.textcomplete-dropdown {
+  background-color: white;
+  border: 1px solid;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  ul.hashtags.textcomplete-dropdown li.textcomplete-item {
+    border-radius: 0;
+    margin: 0;
+    padding: .25em .5em; }
+    ul.hashtags.textcomplete-dropdown li.textcomplete-item:not(:last-child) {
+      border-bottom: 1px solid; }
+    ul.hashtags.textcomplete-dropdown li.textcomplete-item:hover, ul.hashtags.textcomplete-dropdown li.textcomplete-item.active {
+      cursor: pointer;
+      background-color: yellow; }
