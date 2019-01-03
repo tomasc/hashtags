@@ -1,5 +1,5 @@
 {
-  "name": "hashtags",
+  "name": "@tomasc/hashtags",
   "version": "1.0.0",
   "description": "Rails engine to facilitate inline text hashtags.",
   "main": "package/dist/index.js",
