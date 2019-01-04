@@ -1,38 +1,40 @@
 const path = require('path');
 const webpack = require('webpack')
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
-const extractSass = new ExtractTextPlugin({ filename: "index.css" })
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.coffee$/,
-        use: ['babel-loader', 'coffee-loader']
+        use: 'coffee-loader'
       },
       {
-        test: /\.scss$/,
-        use: extractSass.extract({
-          use: ["css-loader", "sass-loader"],
-          fallback: "style-loader"
-        })
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ]
       }
     ],
   },
-  externals: {
-    jquery: 'jquery'
-  },
+  externals: [
+    /handlebars\/.+$/,
+    'jquery',
+    /textcomplete\/.+$/,
+  ],
   entry: './package/src/index.js',
   output: {
     library: '@tomasc/hashtags',
     libraryTarget: 'umd',
-    umdNamedDefine: true,
     filename: 'index.js',
     path: path.resolve(__dirname, 'package/dist')
   },
   plugins: [
-    extractSass,
+    new MiniCssExtractPlugin({ filename: 'index.css' }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"

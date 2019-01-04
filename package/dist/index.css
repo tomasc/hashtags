@@ -3,6 +3,7 @@
 
 .hashtags.help .trigger_group .item:not(:last-child):after {
   content: ', '; }
+
 ul.hashtags.textcomplete-dropdown {
   background-color: white;
   border: 1px solid;
@@ -18,3 +19,4 @@ ul.hashtags.textcomplete-dropdown {
     ul.hashtags.textcomplete-dropdown li.textcomplete-item:hover, ul.hashtags.textcomplete-dropdown li.textcomplete-item.active {
       cursor: pointer;
       background-color: yellow; }
+
