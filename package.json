@@ -20,19 +20,19 @@
     "coffee-loader": "^0.9.0",
     "coffeescript": "^2.0.2",
     "css-loader": "^2.1.0",
-    "handlebars": "^4.0.11",
-    "jquery": "^3.2.1",
-    "jquery-bridget": "^2.0.1",
-    "jquery-ujs": "^1.2.2",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.8.3",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "textcomplete": "^0.14.3",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.11",
+    "jquery": "^3.2.1",
+    "textcomplete": "^0.14.3"
   },
   "peerDependencies": {
     "handlebars": "^4.0.11",
