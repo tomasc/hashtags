@@ -19,7 +19,7 @@ group :test do
   end
 
   gem 'capybara-screenshot'
-  gem 'capybara-webkit'
+  gem 'capybara-selenium'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'mongoid'

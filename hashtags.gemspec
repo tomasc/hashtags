@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'handlebars', '>= 0.8.0'
+  spec.add_dependency 'handlebars'
   spec.add_dependency 'rails', '>= 4'
 
   spec.add_development_dependency 'bundler'
