@@ -1,4 +1,5 @@
 require 'active_support/core_ext/string/inflections'
+require 'ruby-handlebars'
 
 module Hashtags
   class Resource < Base
@@ -68,7 +69,7 @@ module Hashtags
     def hashtag(match)
       return unless id = match[self.class.match_index]
       return unless res = resource(id)
-      Handlebars::Context.new
+      Handlebars::Handlebars.new
                          .compile(self.class.replace)
                          .call(id: res.id.to_s, self.class.tag_attribute => res.send(self.class.tag_attribute))
     end

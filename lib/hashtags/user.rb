@@ -1,4 +1,4 @@
-require 'handlebars'
+require 'ruby-handlebars'
 
 module Hashtags
   class User < Base
@@ -66,7 +66,7 @@ module Hashtags
     def hashtag(match)
       return unless id = match[self.class.match_index-1]
       return unless user = resource(id)
-      Handlebars::Context.new
+      Handlebars::Handlebars.new
                          .compile(self.class.replace)
                          .call(self.class.tag_attribute => user.send(self.class.tag_attribute))
     end
