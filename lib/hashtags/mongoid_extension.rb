@@ -20,6 +20,12 @@ Mongoid::Fields.option :hashtags do |cls, field, value|
   field.define_singleton_method :demongoize do |*args|
     res = super(*args)
 
+    res.define_singleton_method :used_hashtag_classes do
+      ho = field.options[:hashtags]
+      options = (ho.is_a?(Hash) ? ho.slice(*%i(only except)) : {})
+      Hashtags::Builder.used_hashtag_classes(res.to_s, options)
+    end
+
     res.define_singleton_method :to_markup do
       ho = field.options[:hashtags]
       options = (ho.is_a?(Hash) ? ho.slice(*%i(only except)) : {})

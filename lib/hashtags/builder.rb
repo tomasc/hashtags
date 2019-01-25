@@ -8,6 +8,12 @@ module Hashtags
       new(options).to_hashtag(str)
     end
 
+    def self.used_hashtag_classes(str, options = {})
+      new(options).hashtag_classes.select do |cls|
+        cls.regexp.match?(str)
+      end
+    end
+
     def self.dom_data(options = {})
       new(options).dom_data
     end
@@ -53,8 +59,6 @@ module Hashtags
       res
     end
 
-    private
-
     def hashtag_classes
       filter_classes(
         Resource.resource_classes +
@@ -62,6 +66,8 @@ module Hashtags
         Variable.variable_classes
       )
     end
+
+    private
 
     def hashtag_strategies
       cls = hashtag_classes.dup

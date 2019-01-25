@@ -45,6 +45,12 @@ describe 'Mongoid extensions' do
     end
   end
 
+  describe '#used_hashtag_classes' do
+    it { doc.text.must_respond_to :used_hashtag_classes }
+    it { doc.text.used_hashtag_classes.must_include UserTag }
+    it { doc.text.used_hashtag_classes.wont_include VarTag }
+  end
+
   describe '.hashtags' do
     it { ExtensionDoc.hashtags.must_be_kind_of Hash }
     it { ExtensionDoc.hashtags['text'].dom_data.must_be_kind_of Hash }
@@ -54,6 +60,6 @@ describe 'Mongoid extensions' do
 
   describe 'options defined on various classes should not influence each other' do
     it { ExtensionDoc.hashtags['text'].options.must_equal({}) }
-    it { ExtensionDoc2.hashtags['text'].options.must_equal({ only: [VarTag] }) }
+    it { ExtensionDoc2.hashtags['text'].options.must_equal(only: [VarTag]) }
   end
 end
