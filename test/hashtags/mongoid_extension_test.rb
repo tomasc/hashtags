@@ -56,6 +56,13 @@ describe 'Mongoid extensions' do
     it { ExtensionDoc.hashtags['text'].dom_data.must_be_kind_of Hash }
     it { ExtensionDoc.hashtags['text'].help.must_be_kind_of Array }
     it { ExtensionDoc.hashtags['text'].options.must_equal({}) }
+
+    it { ExtensionDoc2.hashtags.must_be_kind_of Hash }
+    it { ExtensionDoc2.hashtags['text'].must_be :present? }
+
+    it { ExtensionDoc3.hashtags.must_be_kind_of Hash }
+    it { ExtensionDoc3.hashtags['f1'].must_be :present? }
+    it { ExtensionDoc3.hashtags['f2'].must_be :present? }
   end
 
   describe 'options defined on various classes should not influence each other' do

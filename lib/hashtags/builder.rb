@@ -38,10 +38,12 @@ module Hashtags
 
     # render textcomplete dom data
     def dom_data
-      { hashtags: {
-        path: Engine.routes.url_helpers.hashtags_resources_path,
-        strategies: hashtag_strategies
-      } }
+      {
+        hashtags: {
+          path: Hashtags::Engine.routes.url_helpers.hashtags_resources_path,
+          strategies: hashtag_strategies
+        }
+      }
     end
 
     # render help string
@@ -53,6 +55,7 @@ module Hashtags
 
     def filter_classes(cls)
       return [] unless cls.present?
+
       res = cls
       res &= options[:only] if options[:only]
       res -= options[:except] if options[:except]

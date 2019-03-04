@@ -13,6 +13,8 @@ group :test do
   gem 'jquery-rails'
   gem 'jbuilder', '~> 2.0'
 
+  gem 'rb-readline'
+
   source 'https://rails-assets.org' do
     gem 'rails-assets-jquery-textcomplete', '~> 1.8'
     gem 'rails-assets-handlebars', '~> 4.0'
